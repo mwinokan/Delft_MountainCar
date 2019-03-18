@@ -4,4 +4,5 @@ function [ a ] = GetBestAction( Q, s )
 %s: the current state
 % Q has structure  Q(states,actions)
 
-[v a] = max(Q(s,:));
+[v a] = max(Q(s,:)); % [ state action ] of best success rate / reward
+% v unused

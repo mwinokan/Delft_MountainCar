@@ -15,33 +15,28 @@ function [ total_reward,steps,Q ] = Episode( maxsteps, Q , alpha, gamma,epsilon,
 % 
 % See Sutton & Barto book: Reinforcement Learning p.214
 
-
-
-
 initial_position = -0.5;
 initial_speed    =  0.0;
 
-x            = [initial_position,initial_speed];
+x            = [initial_position,initial_speed]; 
 steps        = 0;
 total_reward = 0;
-
 
 % convert the continous state variables to an index of the statelist
 s   = DiscretizeState(x,statelist);
 % selects an action using the epsilon greedy selection strategy
 a   = e_greedy_selection(Q,s,epsilon);
 
-
 for i=1:maxsteps    
         
     % convert the index of the action into an action value
     action = actionlist(a);    
     
-    %do the selected action and get the next car state    
+    %do the selected action and get the next car state (xp = x' = x_prime) 
     xp  = DoAction( action , x );    
     
     % observe the reward at state xp and the final state flag
-    [r,f]   = GetReward(xp);
+    [r,f]   = GetReward(xp); % 100 for success (x = 0.45) -1 otherwise
     total_reward = total_reward + r;
     
     % convert the continous state variables in [xp] to an index of the statelist    

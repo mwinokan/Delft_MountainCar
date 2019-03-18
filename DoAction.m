@@ -21,6 +21,7 @@ bsright=0.07;
 speedt1= speed + (0.001*force) + (-0.0025 * cos( 3.0*position) );	 
 speedt1= speedt1 * 0.999; % thermodynamic law, for a more real system with friction.
 
+% cap speed at bounds
 if(speedt1<bsleft) 
     speedt1=bsleft; 
 end
@@ -28,15 +29,16 @@ if(speedt1>bsright)
     speedt1=bsright; 
 end
 
+% increment position (simple Euler integration)
 post1 = position + speedt1; 
 
+% cap position at left bound and zero speed
 if(post1<=bpleft)
     post1=bpleft;
     speedt1=0.0;
 end
 
-
-xp=[];
+xp=[]; % returned state vector
 xp(1) = post1;
 xp(2) = speedt1;
 

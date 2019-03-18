@@ -10,7 +10,7 @@ bpright=0.45;
 %bpright=0.5;
 r = -1;
 f = false;
-% 0 in case of success, -1 for all other moves
+% 100 in case of success, -1 for all other moves
 if( position >= bpright) 
 	r = 100;
     f = true;

@@ -20,12 +20,12 @@ set(gco,'Units','data')
 
 
 maxsteps    = 1000;              % maximum number of steps per episode
-statelist   = BuildStateList();  % the list of states
+statelist   = BuildStateList();  % builds the list of states (10 discrete positions x 6 discrete velocities)
 actionlist  = BuildActionList(); % the list of actions
 
-nstates     = size(statelist,1);
-nactions    = size(actionlist,1);
-Q           = BuildQTable( nstates,nactions );  % the Qtable
+nstates     = size(statelist,1); % = 60
+nactions    = size(actionlist,1); % = 3
+Q           = BuildQTable( nstates,nactions );  % the Qtable (initially zero)
 
 alpha       = 0.5;   % learning rate
 gamma       = 1.0;   % discount factor
@@ -41,8 +41,9 @@ for i=1:maxepisodes
     
     disp(['Episode: ',int2str(i),'  Steps:',int2str(steps),'  Reward:',num2str(total_reward),' epsilon: ',num2str(epsilon)])
     
-    epsilon = epsilon * 0.99;
+    epsilon = epsilon * 0.99; % decrease randomness as learning iterations increase
     
+    % plot number of steps vs episode number:
     xpoints(i)=i-1;
     ypoints(i)=steps;
     subplot(2,1,1);    

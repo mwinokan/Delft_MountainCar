@@ -9,8 +9,6 @@ if (rand()>epsilon)
     a = GetBestAction(Q,s);    
 else
     % selects a random action based on a uniform distribution
-    % +1 because randint goes from 0 to N-1 and matlab matrices goes from
-    % 1 to N
     a = randi(actions);
 end
 
