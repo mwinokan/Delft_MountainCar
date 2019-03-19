@@ -9,15 +9,11 @@ function  MountainCarDemo( maxepisodes )
 % 
 % See Sutton & Barto book: Reinforcement Learning p.214
 
-
-
-
 clc
 clf
 set(gcf,'BackingStore','off')  % for realtime inverse kinematics
 set(gcf,'name','Reinforcement Learning Mountain Car')  % for realtime inverse kinematics
 set(gco,'Units','data')
-
 
 maxsteps    = 1000;              % maximum number of steps per episode
 statelist   = BuildStateList();  % builds the list of states (10 discrete positions x 6 discrete velocities)
