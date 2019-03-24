@@ -1,7 +1,7 @@
 function MountainCarPlot( x,a,steps )
 subplot(2,1,2);
 set(gco,'BackingStore','off')  % for realtime inverse kinematics
-set(gco,'Units','data')
+set(gco,'Units','points')
 xplot =-1.6:0.05:0.6;
 yplot =sin(3*xplot);
 %Mountain
