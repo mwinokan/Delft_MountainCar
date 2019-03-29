@@ -16,7 +16,7 @@ set(gcf,'name','Reinforcement Learning Mountain Car')  % for realtime inverse ki
 set(gco,'Units','data')
 
 maxsteps    = 1000;              % maximum number of steps per episode
-statelist   = BuildStateList();  % builds the list of states (10 discrete positions x 6 discrete velocities)
+statelist   = BuildStateList(10,6);  % builds the list of states (10 discrete positions x 6 discrete velocities)
 actionlist  = BuildActionList(); % the list of actions
 
 nstates     = size(statelist,1); % = 60
@@ -27,6 +27,9 @@ alpha       = 0.5;   % learning rate
 gamma       = 1.0;   % discount factor
 epsilon     = 0.01;  % probability of a random action selection
 grafica     = false; % indicates if display the graphical interface
+
+eps_start = epsilon;
+last_max = 0;
 
 xpoints=[];
 ypoints=[];
@@ -46,6 +49,14 @@ for i=1:maxepisodes
     plot(xpoints,ypoints)      
     title(['Episode: ',int2str(i),' epsilon: ',num2str(epsilon)])    
     drawnow
+    
+    if (steps==maxsteps)
+        last_max=i;
+    end
+    
+    if (i==200)
+        PrintStats('stats_disc_max.dat',maxepisodes,steps,last_max,[n_pos,n_vel],eps_start,0.99,alpha,gamma,0.0);
+    end
     
     if (i>200)
         grafica=true;
