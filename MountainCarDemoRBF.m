@@ -7,7 +7,8 @@ function MountainCarDemoRBF(maxepisodes, animate)
     maxsteps    = 1500;              % maximum number of steps per episode
 
     % radial basis:
-    coarseness = [ 2,3 ];   % [num_position,num_velocity]
+    coarseness = [ 2,3 ];   % [num_position,num_velocity], low feature solution
+    coarseness = [ 4,5 ];   % better solution
     scale = 0.5;            % scale of RBFs
     offset = 0.0;           % RBF offset
     

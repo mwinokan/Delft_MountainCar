@@ -13,7 +13,7 @@ clc
 clf
 set(gcf,'BackingStore','off')  % for realtime inverse kinematics
 set(gcf,'name','Reinforcement Learning Mountain Car')  % for realtime inverse kinematics
-set(gco,'Units','data')
+set(gco,'Units','points')
 
 maxsteps    = 1000;              % maximum number of steps per episode
 statelist   = BuildStateList(10,6);  % builds the list of states (10 discrete positions x 6 discrete velocities)
@@ -55,7 +55,7 @@ for i=1:maxepisodes
     end
     
     if (i==200)
-        PrintStats('stats_disc_max.dat',maxepisodes,steps,last_max,[n_pos,n_vel],eps_start,0.99,alpha,gamma,0.0);
+        PrintStats('stats_disc_max.dat',maxepisodes,steps,last_max,[10,6],eps_start,0.99,alpha,gamma,0.0);
     end
     
     if (i>200)
