@@ -1,22 +1,28 @@
-function [ states ] = BuildStateList
+function [ states ] = BuildStateList(n_pos,n_vel)
 %BuildStateList builds a state list from a state matrix
 
-% state discretization for the mountain car problem
-xdiv  = (0.55-(-1.5))   / 10.0; % 0.205
-xpdiv = (0.07-(-0.07)) / 5.0;   % 0.0028
+offset = 0;
 
-x = -1.5:xdiv:0.5; % x = (-1.5:0.205:0.345) [10]
-xp= -0.07:xpdiv:0.07; % v = (-0.07:0.0028:0.07) [6]
+% position list
+xdiv = 2.0/(n_pos+2*offset-1);
+xmin = -1.5+offset*xdiv;
+xmax = 0.5-offset*xdiv;
+x = xmin:xdiv:xmax;
+
+% velocity list
+vdiv = 0.14/(n_vel+2*offset-1);
+vmax = 0.07-offset*vdiv;
+v = -vmax:vdiv:vmax;
 
 N=size(x,2);
-M=size(xp,2);
+M=size(v,2);
 
 states=[];
 index=1;
 for i=1:N    
     for j=1:M
         states(index,1)=x(i);
-        states(index,2)=xp(j);
+        states(index,2)=v(j);
         index=index+1;
     end
 end
