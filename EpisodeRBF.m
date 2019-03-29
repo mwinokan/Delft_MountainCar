@@ -1,5 +1,6 @@
 function [total_reward,steps,theta] = EpisodeRBF(maxsteps,theta,alpha,gamma,epsilon,actionlist,rdf_centres,rdf_sigmas,grafic)
 
+    % initial state
     ini_x = -0.5;
     ini_v = 0.0;
     state = [ ini_x,ini_v ];
@@ -10,7 +11,7 @@ function [total_reward,steps,theta] = EpisodeRBF(maxsteps,theta,alpha,gamma,epsi
     steps = 0;
     total_reward = 0;
     
-    % selects an action using the epsilon greedy selection strategy
+    % selects an action using the epsilon greedy selection strategy:
     action_index = EpsGreedyRBF(feature_vec,theta,actionlist,epsilon);
     
     for i=1:maxsteps
@@ -20,8 +21,6 @@ function [total_reward,steps,theta] = EpisodeRBF(maxsteps,theta,alpha,gamma,epsi
         
         % Do the selected action and get the next state
         next_state = DoAction(action,state);
-        
-%         disp([' x = ',num2str(next_state(1))]);
 
         % Reward for reaching the next state
         [r,f] = GetReward(next_state);
@@ -36,19 +35,19 @@ function [total_reward,steps,theta] = EpisodeRBF(maxsteps,theta,alpha,gamma,epsi
         % Update the parameter vector for this action - learn from experience
         theta = UpdateTheta(feature_vec,next_feature_vec,action_index,next_action_index,theta,r,alpha,gamma);
         
-%         theta(:,action_index) = NormaliseVector(theta(:,action_index));
-%         sum(theta(:,action_index))
-        
+        % overwrite variables
         state = next_state;
         action_index = next_action_index;
         feature_vec = next_feature_vec;
         
         steps = steps+1;
         
+        % animate:
         if (grafic==true)        
             MountainCarPlot(state,action,steps);
         end
         
+        % if done end loop:
         if (f==true)
             break
         end
